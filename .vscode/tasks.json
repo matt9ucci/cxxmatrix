@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build: clang debug",
+			"type": "shell",
+			"group": {
+				"isDefault": true,
+				"kind": "build",
+			},
+			// Add debug flag
+			// See: https://clang.llvm.org/docs/ClangCommandLineReference.html#debug-information-generation
+			"command": "make clean && make CXXFLAGS='-std=c++17 -Wall -Wextra -g -Og'",
+			"options": {
+				"env": {
+					"CC": "${env:EMSDK}/upstream/bin/clang",
+					"CXX": "${env:EMSDK}/upstream/bin/clang++",
+				},
+			},
+		},
+		{
+			"label": "build: original",
+			"type": "shell",
+			"group": "build",
+			"command": "make clean && make",
+		}
+	]
+}
