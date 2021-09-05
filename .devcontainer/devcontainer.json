@@ -1,0 +1,15 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"UBUNTU_VERSION": "20.04", // LTS (Focal Fossa)
+			"EMSDK_VERSION": "2.0.29",
+		},
+	},
+	"containerEnv": {
+		"LANG": "C.UTF-8",
+	},
+	"extensions": [
+		"ms-vscode.cpptools",
+	],
+}
