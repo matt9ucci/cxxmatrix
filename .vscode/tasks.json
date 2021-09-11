@@ -2,12 +2,24 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "build: clang debug",
+			"label": "build: Wasm",
 			"type": "shell",
 			"group": {
 				"isDefault": true,
 				"kind": "build",
 			},
+			"command": "make clean.wasm && make all.wasm CXXFLAGS='-std=c++17 -Wall -Wextra -g --embed-file glyph.inl -gsource-map --source-map-base http://localhost:8000/ -s FORCE_FILESYSTEM=1'",
+			"options": {
+				"env": {
+					"CC": "EMCC_DEBUG=1 ${env:EMSDK}/upstream/emscripten/emcc",
+					"CXX": "EMCC_DEBUG=1 ${env:EMSDK}/upstream/emscripten/emcc",
+				},
+			},
+		},
+		{
+			"label": "build: clang debug",
+			"type": "shell",
+			"group": "build",
 			// Add debug flag
 			// See: https://clang.llvm.org/docs/ClangCommandLineReference.html#debug-information-generation
 			"command": "make CXXFLAGS='-std=c++17 -Wall -Wextra -g3'",
@@ -37,6 +49,12 @@
 			"type": "shell",
 			"group": "build",
 			"command": "make clean",
+		},
+		{
+			"label": "build: clean Wasm",
+			"type": "shell",
+			"group": "build",
+			"command": "make clean.wasm",
 		},
 	],
 }

@@ -30,6 +30,7 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -Ofast
 # cxx matrix
 
 all: cxxmatrix
+all.wasm: cxxmatrix.html
 
 cxxmatrix-OBJS := cxxmatrix.o
 ifeq ($(TARGET),win32)
@@ -42,6 +43,8 @@ endif
 -include $(wildcard *.dep)
 cxxmatrix: $(cxxmatrix-OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
+cxxmatrix.html: $(cxxmatrix-OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 cxxmatrix.o: cxxmatrix.cpp glyph.inl
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
@@ -52,6 +55,8 @@ glyph.inl: glyph.awk glyph.def
 
 clean:
 	-rm -rf *.o glyph.inl
+clean.wasm:
+	-rm -rf *.o glyph.inl *.html *.wasm *.data *.js *.wasm.map
 
 ifeq ("$(PREFIX)","")
   PREFIX := /usr/local
